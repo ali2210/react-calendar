@@ -37,7 +37,7 @@ function App() {
       setDate(time_elapsed.getDate());
       setMon(time_elapsed.getMonth());
       setYr(time_elapsed.getFullYear());
-    }, 1000);
+    }, 3000);
     
   });
   
