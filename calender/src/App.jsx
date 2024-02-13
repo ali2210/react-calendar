@@ -18,28 +18,24 @@ function App() {
 
   const time_elapsed = new Date();
   
-  useEffect(() => {
-
-     setInterval(() =>{
+  setInterval(() => {
+    
+    if (time_elapsed.getSeconds() != 60){
 
       setMin(time_elapsed.getUTCMinutes());
-      setHr(time_elapsed.getUTCHours());
+      
+    }
 
-      if ((hr > -1 && hr < 23) && (time_elapsed.getMinutes() < 60) && (time_elapsed.getSeconds() < 60)){
+    setHr(time_elapsed.getUTCHours());
+    setDays(time_elapsed.getUTCDay())
 
-        setDays(0);
-      }else {
-
-        setDays(1);
-      }
+    console.log(min, date)
 
 
-      setDate(time_elapsed.getDate());
-      setMon(time_elapsed.getMonth());
-      setYr(time_elapsed.getFullYear());
-    }, 3000);
-    
-  });
+    setDate(time_elapsed.getDate());
+    setMon(time_elapsed.getMonth());
+    setYr(time_elapsed.getFullYear());
+  }, 7000);
   
 
   return (
