@@ -1,42 +1,37 @@
 import { useDeferredValue, useEffect, useState } from 'react'
 import BImage from './image.jsx';
 import { Box } from '@mui/material';
-
-
-
+import Countdown from 'react-countdown';
 import './App.css'
 
 function App() {
 
+  const date = new Date('2024-02-15T23:59:59');
+  const [futuredate, setFuturedate] = useState(date.getUTCDate());
+  const [futuremonth, setFuturemonth] = useState(2);
+  const [futureyear, setFutureyear] = useState(date.getUTCFullYear());
+  const [futurehr, setFuturehr] = useState(date.getUTCHours());
+  const [futuremin, setFuturemin] = useState(date.getUTCMinutes());
 
-  const [days, setDays] = useState(0);
+
+  
+  const days = date.getDate() - new Date().getDate();
+  const [hour, setHour] = useState(0);
   const [min, setMin] = useState(0);
-  const [hr, setHr] = useState(0);
-  const [date , setDate] = useState(0);
-  const [mon, setMon] = useState(0);
-  const [yr, setYr] = useState(0);
-
-  const time_elapsed = new Date();
-  
-  setInterval(() => {
-    
-    if (time_elapsed.getSeconds() != 60){
-
-      setMin(time_elapsed.getUTCMinutes());
-      
-    }
-
-    setHr(time_elapsed.getUTCHours());
-    setDays(time_elapsed.getUTCDay())
-
-    console.log(min, date)
 
 
-    setDate(time_elapsed.getDate());
-    setMon(time_elapsed.getMonth());
-    setYr(time_elapsed.getFullYear());
-  }, 7000);
-  
+  useEffect(() =>{
+
+    setInterval(() =>{
+
+      setMin(date.getMinutes()- new Date().getMinutes());
+      // console.log("minutes", date.getMinutes()- new Date().getMinutes());
+      setHour(date.getHours() - new Date().getHours());
+    });
+
+  },[]);
+
+
 
   return (
     
@@ -49,7 +44,7 @@ function App() {
         Days
       </Box>
       <Box sx={{color : 'white', position : 'relative', top : '-45pc', left : '35pc', border : 1, borderRadius : 2, width : '7pc', height : '7pc', fontSize : '420%'}}>
-        {hr}
+        {hour}
       </Box>
       <Box sx={{color : 'white', position : 'relative', top : '-44pc', left : '-2pc', fontSize : '200%'}}>
         Hours
@@ -61,7 +56,11 @@ function App() {
         Minutes
       </Box>
       <Box sx={{position : 'relative', top : '-53pc', fontSize : '200%', left : '-5pc', color : 'white'}}>
-          {date} - {mon} - {yr} {hr} : {min}
+      
+          {futuredate} - {futuremonth} - {futureyear} {futurehr} : {futuremin}
+          <Box visibility={'hidden'}>
+            <Countdown  date={date}></Countdown>
+          </Box>        
       </Box>
     </Box>
     
