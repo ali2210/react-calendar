@@ -1,7 +1,7 @@
 import { useDeferredValue, useEffect, useState } from 'react'
 import BImage from './image.jsx';
 import { Box } from '@mui/material';
-import Countdown from 'react-countdown';
+import Countdown, { calcTimeDelta } from 'react-countdown';
 import './App.css'
 
 function App() {
@@ -10,18 +10,22 @@ function App() {
   const [day, setDay] = useState(0);
   const [hour, setHour] = useState(0);
   const [minute, setMin] = useState(0);
+  const [dates, setDates] = useState(0);
+  const [months, setMonths] = useState(0);
+  const [years, setYears] = useState(0);
+  const [currhour, setCurrhour] = useState(0);
+  const [currmin, setCurrMin] = useState(0);
 
-  const renderer = ({days, hours, minutes, completed}) =>{
-
-    if(completed){
-
-      return <span>Congrats timer stopped here </span>;
-    }else{
+  const renderer = ({days, hours, minutes}) =>{
       
       setDay(days);
       setHour(hours);
       setMin(minutes);
-    }
+      setDates(date.getUTCDate());
+      setMonths(date.getUTCMonth());
+      setYears(date.getUTCFullYear());
+      setCurrhour(date.getHours());
+      setCurrMin(date.getMinutes());
   }
 
 
@@ -48,12 +52,9 @@ function App() {
       <Box sx={{color : 'white', position : 'relative', top : '-54pc', left : '8.2pc', fontSize : '200%'}}>
         Minutes
       </Box>
-      <Box sx={{position : 'relative', top : '-53pc', fontSize : '200%', left : '-5pc', color : 'white'}}>
-      
-          {/* {futuredate} - {futuremonth} - {futureyear} {futurehr} : {futuremin} */}
-          <Box visibility={'visible'}>
-            <Countdown  date={date} renderer={renderer}></Countdown>
-          </Box>        
+      <Box sx={{position : 'relative', top : '-53pc', fontSize : '200%', left : '-5pc', color : 'white'}}>          
+          <Countdown  date={date} renderer={renderer}></Countdown> 
+          {dates} - {months} - {years} {currhour} : {currmin}     
       </Box>
     </Box>
     
